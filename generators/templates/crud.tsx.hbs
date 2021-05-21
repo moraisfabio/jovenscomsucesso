@@ -1,0 +1,88 @@
+import React, { ReactElement, useState } from 'react'
+import { Table } from 'antd';
+
+import { Container } from  './styles';
+import CrudButtons from '../../components/CrudButtons';
+
+
+//Dados das colunas
+const dataSource = [{
+  ukey: 4,
+  key: '1',
+  name: 'Mike',
+  age: 32,
+  address: '10 Downing Street',
+}, {
+  ukey: 5,
+  key: '2',
+  name: 'John',
+  age: 42,
+  address: '10 Downing Street',
+}];
+
+//Colunas da tabela
+const columns = [{
+  title: 'Name',
+  dataIndex: 'name',
+  key: 'name',
+},{
+  title: 'Age',
+  dataIndex: 'age',
+  key: 'age',
+},{
+  title: 'Address',
+  dataIndex: 'address',
+  key: 'address',
+}];
+
+const {{pascalCase name}}: React.FC = (): ReactElement => {
+  const [rowSelected, setRowSelected] = useState<number>(0)
+  const rowClassname = (record: any): string => {
+    return rowSelected === record.ukey ? 'bg-table-row-selected' : ''
+  }
+
+  const create = () => {
+    console.log(rowSelected)
+  }
+
+  const update = () => {
+    console.log('update')
+  }
+
+  const remove = () => {
+    console.log('remove')
+  }
+
+  const show = () => {
+    console.log('show')
+  }
+
+  return (
+    <Container>
+      <CrudButtons 
+        create={create}
+        update={update}
+        remove={remove}
+        show={show}
+      />
+
+      <Table
+        pagination={{
+          defaultPageSize: 10, 
+          showSizeChanger: true
+        }}
+        onRow={(row) => {
+        return {
+          onClick: () => {setRowSelected(row.ukey)},
+        };
+      }}
+        rowClassName={rowClassname}
+        dataSource={dataSource}
+        columns={columns}
+      />
+      
+    </Container>
+  )
+}
+
+export default {{pascalCase name}}
